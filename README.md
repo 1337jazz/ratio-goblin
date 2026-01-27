@@ -1,36 +1,24 @@
-# ratio-goblin
+# 👺 ratiogoblin
 
-The `ratio-goblin` is a simple tool designed for use with status bars such as i3-bar, Waybar, and Polybar to get your current torrent ratio from IPTorrents.
+`ratiogoblin` is a simple tool designed for use with status bars such as i3-bar, Waybar, and Polybar to get your current torrent ratio from IPTorrents.
 
 ---
 
-## Usage:
+## Quick Start
 
-Run the following commands in your terminal:
+To get started with `ratiogoblin`, follow these steps:
 
-**Help**
-```
-$ ratiogoblin help
-```
-Displays usage information and available commands.
+1. Run `ratiogoblin init` to create a default configuration file - for most distros this will be at `~/.config/ratiogoblin/config.json`.
 
-**Initialize Configuration**
-```
-$ ratiogoblin init
-```
-Creates a default configuration file in your system's user config directory under the application name.
-
-**Run Scraper**
-```
-$ ratiogoblin run
-```
-Executes the ratio scraper and displays the output.
-
-**Check Version**
-```
-$ ratiogoblin version
-```
-Displays the current version of the application.
+2. Edit the configuration file to add your IPTorrents credentials (from your cookie). Note, the `pass` field is not necessarily your account password, but the `pass` cookie value from IPTorrents.
+    ```json
+    {
+      "uid": "your_uid",
+      "pass": "your_pass"
+    }
+    ```
+3. Run `ratiogoblin run` to see your current ratio.
+4. Integrate `ratiogoblin` with your status bar of choice by adding the appropriate command to your bar's configuration.
 
 ---
 
