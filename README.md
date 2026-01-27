@@ -4,7 +4,7 @@
 
 ⚠️ **Note**: This tool calls IPTorrents, so be nice to their servers and avoid setting a very low refresh interval when integrating with your status bar. I am not responsible for any bans or issues that may arise from excessive requests!
 
-P.S. I made this is like 1 hour so don't expect too much from it :)
+P.S. I made this in like 1 hour so don't expect too much from it :)
 
 ## Installation
 
