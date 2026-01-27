@@ -8,9 +8,11 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-const url = "https://iptorrents.com/user.php"
+const URL = "https://iptorrents.com/user.php"
 
 type Scraper interface {
+
+	// ScrapeRatio scrapes the user's ratio from the website.
 	ScrapeRatio() string
 }
 
@@ -19,6 +21,7 @@ type scraper struct {
 	pass string
 }
 
+// NewScraper creates a new Scraper instance with the given configuration.
 func NewScraper(config *config.Config) Scraper {
 	return &scraper{
 		uid:  config.CookieUID,
@@ -28,16 +31,21 @@ func NewScraper(config *config.Config) Scraper {
 
 func (s *scraper) ScrapeRatio() string {
 
-	req, err := http.NewRequest("GET", url, nil)
+	// Create HTTP request
+	req, err := http.NewRequest("GET", URL, nil)
 	if err != nil {
 		return fmt.Sprintf("ERROR: %s", err.Error())
 	}
 
+	// Add the "u" query parameter (the uid)
 	q := req.URL.Query()
 	q.Add("u", s.uid)
-
 	req.URL.RawQuery = q.Encode()
-	req.Header.Set("Cookie", "uid="+s.uid+"; pass="+s.pass)
+
+	// Set cookies (uid and pass)
+	req.Header.Set("Cookie", fmt.Sprintf("uid=%s; pass=%s", s.uid, s.pass))
+
+	// Send the HTTP request
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
@@ -48,11 +56,13 @@ func (s *scraper) ScrapeRatio() string {
 	}
 	defer resp.Body.Close()
 
+	// Parse the HTML response
 	doc, err := goquery.NewDocumentFromReader(resp.Body)
 	if err != nil {
 		return fmt.Sprintf("ERROR: %s", err.Error())
 	}
 
+	// Extract the ratio value using the CSS selector
 	value := doc.Find(".al > font:nth-child(1) > font:nth-child(1)").Text()
 
 	return value

@@ -31,3 +31,11 @@ clean: # Clean the code
 
 build: clean # Build the code 
 	@go build -ldflags "-w -s" -o $(BUILD_DIR)/$(APP_NAME) $(MAIN_FILE)
+
+
+# build-version: clean # Build the code with version info
+# 	@if [ -z "$(version)" ] ; then \
+# 		echo "Usage: make release version=<version>"; \
+# 		exit 1; \
+# 	fi
+# 	@go build -ldflags "-w -s -X 'github.com/1337jazz/mmcli/cmd/ratiogoblin/VERSION=$(version)'" -o $(BUILD_DIR)/$(APP_NAME) $(MAIN_FILE)
