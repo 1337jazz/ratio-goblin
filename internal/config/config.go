@@ -50,27 +50,24 @@ func InitConfig() error {
 }
 
 // LoadConfig loads the configuration from the config file.
-func LoadConfig() *Config {
+func LoadConfig() (*Config, error) {
 	fqn, err := configFileFQN()
 	if err != nil {
-		fmt.Println("Error getting config file path:", err)
-		return nil
+		return nil, fmt.Errorf("error getting config file path: %v", err)
 	}
 
 	data, err := os.ReadFile(fqn)
 	if err != nil {
-		fmt.Println("Error reading config file:", err)
-		return nil
+		return nil, fmt.Errorf("error reading config file: %v", err)
 	}
 
 	var configData Config
 	err = json.Unmarshal(data, &configData)
 	if err != nil {
-		fmt.Println("Error unmarshaling config data:", err)
-		return nil
+		return nil, fmt.Errorf("error unmarshaling config data: %v", err)
 	}
 
-	return &configData
+	return &configData, nil
 }
 
 // configFileFQN returns the fully qualified name of the config file.

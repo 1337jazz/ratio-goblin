@@ -26,7 +26,12 @@ func main() {
 		}
 		fmt.Println("Config file created successfully.")
 	case "run":
-		s := scraper.NewScraper(config.LoadConfig())
+		cfg, err := config.LoadConfig()
+		if err != nil {
+			fmt.Println("Failed to load config - did you run `ratiogoblin init` first?\n\nERROR:", err)
+			os.Exit(1)
+		}
+		s := scraper.NewScraper(cfg)
 		ratio := s.ScrapeRatio()
 		fmt.Println(ratio)
 	case "version":
