@@ -104,7 +104,7 @@ Add the following custom module to your Waybar configuration file (usually locat
 "custom/ratiogoblin": {
   "exec": "ratiogoblin run",
   "interval": 3600,
-  "format":  "Ratio: {output}" # `output` will be your ratio
+  "format":  "Ratio: {text}" # `text` will be your ratio
 }
 ```
 Then, add the custom module to Waybar’s `modules-right` (or other section):
