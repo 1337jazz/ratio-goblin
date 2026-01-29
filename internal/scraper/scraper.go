@@ -3,6 +3,7 @@ package scraper
 import (
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/1337jazz/ratio-goblin/internal/config"
 	"github.com/PuerkitoBio/goquery"
@@ -47,14 +48,26 @@ func (s *scraper) ScrapeRatio() string {
 
 	// Send the HTTP request
 	client := &http.Client{}
-	resp, err := client.Do(req)
+	var resp *http.Response
+	maxAttempts := 1
+
+	// Loop and retry on network errors
+	for attempt := 1; attempt <= maxAttempts; attempt++ {
+		resp, err = client.Do(req)
+		if err == nil {
+			break
+		}
+		time.Sleep(10 * time.Second)
+	}
+
 	if err != nil {
-		if resp.StatusCode != http.StatusOK {
+		if resp != nil && resp.StatusCode != http.StatusOK {
 			return fmt.Sprintf("ERROR: %s", err.Error())
 		}
-		return fmt.Sprintf("ERROR: %s", err.Error())
+
+		// This is probably a network issue, print the error on the second line so status lines just show "<no network>"
+		return fmt.Sprintf("<no network>\nERROR: %s", err.Error())
 	}
-	defer resp.Body.Close()
 
 	// Parse the HTML response
 	doc, err := goquery.NewDocumentFromReader(resp.Body)
