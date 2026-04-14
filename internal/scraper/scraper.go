@@ -10,6 +10,7 @@ import (
 )
 
 const URL = "https://iptorrents.com/user.php"
+const Selector = "#body > tbody > tr > td > div.up-wrap > div.up-stats > div:nth-child(4) > div.up-stat-value > span"
 
 type Scraper interface {
 
@@ -76,7 +77,7 @@ func (s *scraper) ScrapeRatio() string {
 	}
 
 	// Extract the ratio value using the CSS selector
-	value := doc.Find(".al > font:nth-child(1) > font:nth-child(1)").Text()
+	value := doc.Find(Selector).Text()
 
 	return value
 }

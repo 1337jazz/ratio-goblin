@@ -6,6 +6,16 @@
 
 P.S. I made this in like 1 hour so don't expect too much from it :)
 
+## Updates
+
+Starting with version `0.14`, if there is an update available for `ratiogoblin`, you'll see a "*" appended to the output of `ratiogoblin run`. To update to the latest version, simply run:
+
+```bash
+ratiogoblin update
+```
+
+For previous versions, you will need to repeat the installation steps to get the latest version.
+
 ## Installation
 
 You can install `ratiogoblin` by grabbing a pre-built binary or by building it from source.
