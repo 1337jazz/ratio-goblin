@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"os"
 
@@ -46,10 +47,18 @@ func main() {
 		}
 	case "update":
 		if err := updater.Update(); err != nil {
-			fmt.Println("Update:", err)
+			if errors.Is(err, updater.UpdateCancelled) {
+				fmt.Println("Update cancelled")
+				return
+			}
+			if errors.Is(err, updater.AlreadyUpToDate) {
+				fmt.Println("Already up to date")
+				return
+			}
+			fmt.Println("Failed to update:", err)
 			os.Exit(1)
 		}
-		fmt.Println("Updated successfully.")
+		fmt.Println("Updated successfully - restart the ratiogoblin process in your bar")
 	case "version":
 		printVersion()
 	default:
