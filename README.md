@@ -8,7 +8,7 @@ P.S. I made this in like 1 hour so don't expect too much from it :)
 
 ## Updates
 
-Starting with version `0.14`, if there is an update available for `ratiogoblin`, you'll see a "*" appended to the output of `ratiogoblin run`. To update to the latest version, simply run:
+Starting with version `0.2.0`, if there is an update available for `ratiogoblin`, you'll see a "*" appended to the output of `ratiogoblin run`. To update to the latest version, simply run:
 
 ```bash
 ratiogoblin update
